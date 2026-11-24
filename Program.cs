@@ -1,6 +1,6 @@
 ﻿using DroneControlSystem;
 
-Console.WriteLine("=== Система управления БПЛА (версия 1.2 - методы) ===\n");
+Console.WriteLine("=== Система управления БПЛА (версия 3.0) ===\n");
 
 Drone myDrone = new Drone("DJI Mini 3", 15);
 myDrone.PrintInfo();
