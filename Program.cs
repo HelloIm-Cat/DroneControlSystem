@@ -1,4 +1,5 @@
 ﻿using DroneControlSystem;
+using System.Text.Json;
 
 Console.WriteLine("=== Система управления БПЛА (версия 3.0) ===\n");
 
@@ -16,6 +17,8 @@ while (true)
     Console.WriteLine("2. Взлёт выбранного дрона");
     Console.WriteLine("3. Подзарядка выбранного дрона");
     Console.WriteLine("4. Расчёт времени полёта (в разработке)");
+    Console.WriteLine("5. Сохранить состояние в файл");
+    Console.WriteLine("6. Загрузить состояние из файла");
     Console.WriteLine("0. Выход");
     Console.Write("Выберите действие: ");
 
@@ -40,7 +43,7 @@ while (true)
             if (int.TryParse(Console.ReadLine(), out int index) && index >= 0 && index < drones.Length)
             {
                 if (choice == 2) drones[index].TakeOff();
-                if (choice == 3) drones[index].Charge(20); // Заряжаем на 20%
+                if (choice == 3) drones[index].Charge(20);
             }
             else
             {
@@ -50,8 +53,34 @@ while (true)
         case 4:
             Console.WriteLine("Функция в разработке...");
             break;
+        case 5:
+            SaveDrones(drones, "drones.json");
+            break;
+        case 6:
+            drones = LoadDrones("drones.json");
+            break;
         default:
             Console.WriteLine("Неизвестная команда.");
             break;
     }
+}
+
+static void SaveDrones(Drone[] drones, string fileName)
+{
+    var options = new JsonSerializerOptions { WriteIndented = true };
+    string jsonString = JsonSerializer.Serialize(drones, options);
+    File.WriteAllText(fileName, jsonString);
+    Console.WriteLine($"Состояние сохранено в файл {fileName}");
+}
+
+static Drone[] LoadDrones(string fileName)
+{
+    if (!File.Exists(fileName))
+    {
+        Console.WriteLine("Файл не найден. Будет создан новый массив.");
+        return new Drone[0];
+    }
+    string jsonString = File.ReadAllText(fileName);
+    Drone[]? loadedDrones = JsonSerializer.Deserialize<Drone[]>(jsonString);
+    return loadedDrones ?? new Drone[0];
 }

@@ -3,9 +3,11 @@
 public class Drone
 {
     public string Model { get; set; }
-    public int BatteryLevel { get; set; } // 0..100
+    public int BatteryLevel { get; set; }
     public double Altitude { get; set; }
     public bool IsEngineOn { get; set; }
+
+    public Drone() { }
 
     public Drone(string model, int batteryLevel)
     {
@@ -35,14 +37,14 @@ public class Drone
         BatteryLevel -= 5;
         Console.WriteLine($"{Model} взлетел на высоту 10 м. Заряд: {BatteryLevel}%");
     }
-    // Метод для посадки
+
     public void Land()
     {
         if (Altitude > 0)
         {
             Altitude = 0;
             IsEngineOn = false;
-            BatteryLevel -= 2; // Тратим 2% на посадку
+            BatteryLevel -= 2;
             Console.WriteLine($"{Model} совершил посадку. Заряд: {BatteryLevel}%");
         }
         else
@@ -51,15 +53,10 @@ public class Drone
         }
     }
 
-    // Метод для зарядки
     public void Charge(int amount)
     {
         BatteryLevel += amount;
-        if (BatteryLevel > 100)
-        {
-            BatteryLevel = 100; // Заряд не может быть больше 100%
-        }
-        Console.WriteLine($"{Model} заряжен на {amount}%. Текущий заряд: {BatteryLevel}%");
+        if (BatteryLevel > 100) BatteryLevel = 100;
+        Console.WriteLine($"{Model} заряжен. Текущий заряд: {BatteryLevel}%");
     }
-
 }
