@@ -21,3 +21,4 @@ myDrone.PrintInfo();
 
 Console.WriteLine("\nНажмите любую клавишу для выхода...");
 Console.ReadKey();
+// Тест синхронизации выполнен
