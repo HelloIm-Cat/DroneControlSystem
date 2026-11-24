@@ -3,6 +3,10 @@ using System.Text.Json;
 
 Console.WriteLine("=== Система управления БПЛА (версия 3.0) ===\n");
 
+<<<<<<< HEAD
+=======
+// Создаем массив дронов
+>>>>>>> feature/interactive-menu
 Drone[] drones = new Drone[]
 {
     new Drone("DJI Mini 3", 85),
@@ -16,14 +20,22 @@ while (true)
     Console.WriteLine("1. Показать информацию о всех дронах");
     Console.WriteLine("2. Взлёт выбранного дрона");
     Console.WriteLine("3. Подзарядка выбранного дрона");
+<<<<<<< HEAD
     Console.WriteLine("4. Расчёт времени полёта (в разработке)");
     Console.WriteLine("5. Сохранить состояние в файл");
     Console.WriteLine("6. Загрузить состояние из файла");
+=======
+    Console.WriteLine("4. Расчёт времени полёта"); // (Пока заглушка, если нет метода)
+>>>>>>> feature/interactive-menu
     Console.WriteLine("0. Выход");
     Console.Write("Выберите действие: ");
 
     string input = Console.ReadLine();
 
+<<<<<<< HEAD
+=======
+    // Используем TryParse для безопасного ввода
+>>>>>>> feature/interactive-menu
     if (!int.TryParse(input, out int choice))
     {
         Console.WriteLine("Ошибка: введите число.");
@@ -43,7 +55,11 @@ while (true)
             if (int.TryParse(Console.ReadLine(), out int index) && index >= 0 && index < drones.Length)
             {
                 if (choice == 2) drones[index].TakeOff();
+<<<<<<< HEAD
                 if (choice == 3) drones[index].Charge(20);
+=======
+                if (choice == 3) drones[index].Charge(20); // Заряжаем на 20%
+>>>>>>> feature/interactive-menu
             }
             else
             {
@@ -53,16 +69,20 @@ while (true)
         case 4:
             Console.WriteLine("Функция в разработке...");
             break;
+<<<<<<< HEAD
         case 5:
             SaveDrones(drones, "drones.json");
             break;
         case 6:
             drones = LoadDrones("drones.json");
             break;
+=======
+>>>>>>> feature/interactive-menu
         default:
             Console.WriteLine("Неизвестная команда.");
             break;
     }
+<<<<<<< HEAD
 }
 
 static void SaveDrones(Drone[] drones, string fileName)
@@ -83,4 +103,6 @@ static Drone[] LoadDrones(string fileName)
     string jsonString = File.ReadAllText(fileName);
     Drone[]? loadedDrones = JsonSerializer.Deserialize<Drone[]>(jsonString);
     return loadedDrones ?? new Drone[0];
+=======
+>>>>>>> feature/interactive-menu
 }
